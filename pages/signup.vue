@@ -1,33 +1,35 @@
 <template>
-  <v-container>
-    <h1>Sing up</h1>
-    <v-text-field v-model="name" type="text" label="Name" />
-    <v-text-field
-      v-model="email"
-      type="email"
-      label="Email"
-      :rules="rules.email"
-    />
-    <v-text-field
-      v-model="password"
-      type="password"
-      label="Password"
-      :rules="rules.password"
-    />
-    <v-text-field
-      v-model="confirmPassword"
-      type="password"
-      label="Confirm Password"
-      :rules="rules.confirmPassword"
-    />
-    <v-btn color="primary" @click="signup">
-      Sign up
-    </v-btn>
-    <v-btn to="/login" color="primary">
-      Cancel
-    </v-btn>
-    <div>{{ message }}</div>
-  </v-container>
+  <v-row>
+    <v-col>
+      <h1>Sing up</h1>
+      <v-text-field v-model="name" type="text" label="Name" />
+      <v-text-field
+        v-model="email"
+        type="email"
+        label="Email"
+        :rules="rules.email"
+      />
+      <v-text-field
+        v-model="password"
+        type="password"
+        label="Password"
+        :rules="rules.password"
+      />
+      <v-text-field
+        v-model="confirmPassword"
+        type="password"
+        label="Confirm Password"
+        :rules="rules.confirmPassword"
+      />
+      <v-btn color="primary" @click="signup">
+        Sign up
+      </v-btn>
+      <v-btn to="/login" color="primary">
+        Cancel
+      </v-btn>
+      <div>{{ message }}</div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
