@@ -107,7 +107,7 @@ export default {
       return this.$store.state.user
     },
     checked () {
-      return this.answerPoint != null && this.answerPoint > 0
+      return this.answerPoint != null && parseInt(this.answerPoint) > 0
     },
     questionId () {
       return this.questions[this.boarding].id
