@@ -39,19 +39,38 @@
         </v-window>
         <v-card-actions class="justify-space-between">
           <v-btn
+            v-if="prevBtn"
             btn
             icon
             large
-            class="text-decoration-none"
             @click="prev"
           >
             <v-icon>mdi-chevron-left</v-icon>
           </v-btn>
           <v-btn
+            v-else
+            btn
+            icon
+            large
+            disabled
+          >
+            <v-icon>mdi-chevron-left</v-icon>
+          </v-btn>
+          <v-btn
+            v-if="nextBtn"
             btn
             icon
             large
             @click="next"
+          >
+            <v-icon>mdi-chevron-right</v-icon>
+          </v-btn>
+          <v-btn
+            v-else
+            btn
+            icon
+            large
+            disabled
           >
             <v-icon>mdi-chevron-right</v-icon>
           </v-btn>
@@ -77,7 +96,10 @@ export default {
   data () {
     return {
       boarding: 0,
-      answerPoint: null
+      answerPoint: null,
+      answers: [],
+      prevBtn: false,
+      nextBtn: true
     }
   },
   computed: {
@@ -85,8 +107,11 @@ export default {
       return this.$store.state.user
     },
     checked () {
-      return this.answerPoint != null && parseInt(this.answerPoint) > 0
-    }
+      return this.answerPoint != null && this.answerPoint > 0
+    },
+    questionId () {
+      return this.questions[this.boarding].id
+    },
   },
   methods: {
     answerText(questionId, idx) {
@@ -101,12 +126,47 @@ export default {
         alert("choose")
         return
       }
-      this.answerPoint = null
+      // do answer
+      this.doAnswer()
+      // show board
       this.boarding = this.boarding + 1 === this.questions.length ? 0 : this.boarding + 1
+      // show answer
+      this.showAnswer()
+      // button disabled or enabled
+      this.btnDisabledEnabled()
     },
     prev () {
+      // show board
       this.boarding = this.boarding - 1 < 0 ? this.questions.length - 1 : this.boarding - 1
+      // show answer
+      this.showAnswer()
+      // button disabled or enabled
+      this.btnDisabledEnabled()
     },
+    btnDisabledEnabled() {
+      this.prevBtn = this.boarding > 0
+      this.nextBtn = this.boarding < this.questions.length - 1
+    },
+    showAnswer() {
+      const answer = this.answers.find(answer => answer.questionId === this.questionId)
+      if (answer != null) {
+        this.answerPoint = answer.answerPoint
+      } else {
+        this.answerPoint = null
+      }
+    },
+    doAnswer() {
+      const answer = {
+        questionId: this.questionId,
+        answerPoint: this.answerPoint
+      }
+      const answerIndex = this.answers.findIndex(answer => answer.questionId === this.questionId)
+      if (answerIndex >= 0) {
+        this.answers[answerIndex] = answer
+      } else {
+        this.answers.push(answer)
+      }
+    }
   }
 }
 </script>
