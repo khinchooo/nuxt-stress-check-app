@@ -15,24 +15,20 @@
                 align="center"
                 justify="center"
               >
-                <v-col cols="12">
-                  <v-card-text>
-                    {{ categoryByQuestionId(question.id).id }} {{ categoryByQuestionId(question.id).questionText }}
-                  </v-card-text>
-                </v-col>
-                <v-col cols="12">
-                  <v-card-text>
-                    {{ question.id }} {{ question.answerText }}
-                  </v-card-text>
-                  <v-radio-group v-model="answerPoint">
-                    <v-radio
-                      v-for="(answerPointIdx, j) in question.answerPoint"
-                      :key="j"
-                      :label="`${answerText(question.id, j)}`"
-                      :value="answerPointIdx"
-                    ></v-radio>
-                  </v-radio-group>
-                </v-col>
+              <v-card-text>
+                {{ categoryByQuestionId(question.id).id }} {{ categoryByQuestionId(question.id).questionText }}
+              </v-card-text>
+              <v-card-text>
+                {{ question.id }} {{ question.answerText }}
+              </v-card-text>
+              <v-radio-group v-model="answerPoint">
+                <v-radio
+                  v-for="(answerPointIdx, j) in question.answerPoint"
+                  :key="j"
+                  :label="`${answerText(question.id, j)}`"
+                  :value="answerPointIdx"
+                ></v-radio>
+              </v-radio-group>
               </v-row>
             </v-card>
           </v-window-item>
@@ -68,11 +64,9 @@
           <v-btn
             v-else
             btn
-            icon
             large
-            disabled
           >
-            <v-icon>mdi-chevron-right</v-icon>
+           完了
           </v-btn>
         </v-card-actions>
       </div>
@@ -131,7 +125,7 @@ export default {
       // show board
       this.boarding = this.boarding + 1 === this.questions.length ? 0 : this.boarding + 1
       // show answer
-      this.showAnswer()
+      this.showSelectedAnswer()
       // button disabled or enabled
       this.btnDisabledEnabled()
     },
@@ -139,7 +133,7 @@ export default {
       // show board
       this.boarding = this.boarding - 1 < 0 ? this.questions.length - 1 : this.boarding - 1
       // show answer
-      this.showAnswer()
+      this.showSelectedAnswer()
       // button disabled or enabled
       this.btnDisabledEnabled()
     },
@@ -147,7 +141,7 @@ export default {
       this.prevBtn = this.boarding > 0
       this.nextBtn = this.boarding < this.questions.length - 1
     },
-    showAnswer() {
+    showSelectedAnswer() {
       const answer = this.answers.find(answer => answer.questionId === this.questionId)
       if (answer != null) {
         this.answerPoint = answer.answerPoint
