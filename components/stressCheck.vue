@@ -105,16 +105,16 @@ export default {
       totalD: 0,
       total: 0,
       hightStress: '',
-      totalAC: 0
+      totalAC: 0,
     }
   },
   computed: {
     user () {
       return this.$store.state.user
     },
-    checked () {
-      return this.answerPoint != null && this.answerPoint > 0
-    },
+    // checked () {
+    //   return this.answerPoint != null && this.answerPoint > 0
+    // },
     questionId () {
       return this.questions[this.boarding].id
     },
@@ -128,10 +128,10 @@ export default {
       return this.categories.find(category => category.id === categoryId)
     },
     next () {
-      if (!this.checked) {
-        alert("答えを選んでください。")
-        return
-      }
+      // if (!this.checked) {
+      //   alert("答えを選んでください。")
+      //   return
+      // }
       // do answer
       this.doAnswer()
       // show board
@@ -190,7 +190,6 @@ export default {
         }
       });
 
-      // let highStressFlag = false
       if (this.totalB >= 77 || (this.totalB >= 63 && this.totalAC >= 76)) {
         this.hightStress = '高ストレス'
       } else {
@@ -208,7 +207,7 @@ export default {
         hightStress: this.hightStress,
         checkDate: serverTimestamp()
       }).then(() => {
-        this.$router.push({ name: 'index' })
+        this.$router.push({ name: 'end' })
         this.answers = []
       })
     },

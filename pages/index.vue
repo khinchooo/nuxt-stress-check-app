@@ -10,7 +10,6 @@
     </v-col>
   </v-row>
   <v-row v-if="results && results.length > 0">
-  <!-- <v-row> -->
     <v-col>
       <v-card>
         <v-list-item v-for="res in results" :key="res.id">
