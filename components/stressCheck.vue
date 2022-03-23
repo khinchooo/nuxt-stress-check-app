@@ -4,7 +4,7 @@
         {{ boarding + 1 }} / {{ questions.length }}
     </div>
     <v-card color="#FCE4EC">
-      <v-window v-model="boarding" class="slide-window">
+      <v-window v-model="boarding" class="slide-window" :touch="{left: next}">
         <v-window-item v-for="(question, i) in questions" :key="`card-${i}`">
           <v-card
             color="transparent"
