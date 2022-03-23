@@ -9,7 +9,7 @@
       </div>
     </v-col>
   </v-row>
-  <v-row v-if="results && results.length > 0">
+  <v-row v-if="results.length !== 0">
     <v-col>
       <v-card class="overflow-y-auto mx-auto" max-height="400" max-width="500">
         <h4 align="center"> 過去のストレスチェック結果 </h4>
