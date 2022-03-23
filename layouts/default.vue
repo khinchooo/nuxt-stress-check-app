@@ -11,7 +11,7 @@
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
             <v-btn
-              v-if="$store.getters.isAuthenticated"
+              v-if="user"
               large
               icon
               color="primary"
@@ -35,13 +35,13 @@
               <v-icon>mdi-account-circle</v-icon>
             </v-btn>
           </template>
-          <span v-if="$store.getters.isAuthenticated">Logout</span>
+          <span v-if="user">Logout</span>
           <span v-else>Login</span>
         </v-tooltip>
         <v-tooltip bottom>
           <template #activator="{ on, attrs }">
             <v-btn
-              v-if="!$store.getters.isAuthenticated"
+              v-if="!user"
               large
               icon
               color="primary"
@@ -76,12 +76,17 @@ export default {
     return {
     }
   },
+  computed: {
+    user () {
+      return this.$store.state.user
+    }
+  },
   methods: {
     logout () {
       signOut(auth).then(() => {
         this.$store.dispatch('setUser', null)
       })
-      window.location.href = '/'
+      window.location.href = '/login'
     }
   }
 }

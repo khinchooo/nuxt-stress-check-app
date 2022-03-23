@@ -1,76 +1,75 @@
 <template>
   <v-container class="text-center">
-    <v-card>
-      <div class="pt-5">
-        <div class="text-right">
-          {{ boarding + 1 }} / {{ questions.length }}
-        </div>
-        <v-window v-model="boarding" class="slide-window">
-          <v-window-item v-for="(question, i) in questions" :key="`card-${i}`">
-            <v-card
-              color="transparent"
+    <div class="text-right">
+        {{ boarding + 1 }} / {{ questions.length }}
+    </div>
+    <v-card color="#FCE4EC">
+      <v-window v-model="boarding" class="slide-window">
+        <v-window-item v-for="(question, i) in questions" :key="`card-${i}`">
+          <v-card
+            color="transparent"
+          >
+            <v-row
+              class="fill-height text-center"
+              align="center"
+              justify="center"
             >
-              <v-row
-                class="fill-height text-center"
-                align="center"
-                justify="center"
-              >
-              <v-card-text>
-                {{ categoryByQuestionId(question.id).id }} {{ categoryByQuestionId(question.id).questionText }}
-              </v-card-text>
-              <v-card-text>
-                {{ question.id }} {{ question.answerText }}
-              </v-card-text>
-              <v-radio-group v-model="answerPoint">
-                <v-radio
-                  v-for="(answerPointIdx, j) in question.answerPoint"
-                  :key="j"
-                  :label="`${answerText(question.id, j)}`"
-                  :value="answerPointIdx"
-                ></v-radio>
-              </v-radio-group>
-              </v-row>
-            </v-card>
-          </v-window-item>
-        </v-window>
-        <v-card-actions class="justify-space-between">
-          <v-btn
-            v-if="prevBtn"
-            btn
-            icon
-            large
-            @click="prev"
-          >
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-          <v-btn
-            v-else
-            btn
-            icon
-            large
-            disabled
-          >
-            <v-icon>mdi-chevron-left</v-icon>
-          </v-btn>
-          <v-btn
-            v-if="nextBtn"
-            btn
-            icon
-            large
-            @click="next"
-          >
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
-          <v-btn
-            v-else
-            btn
-            large
-            @click="saveBtn"
-          >
-           完了
-          </v-btn>
-        </v-card-actions>
-      </div>
+            <v-card-text>
+              {{ categoryByQuestionId(question.id).id }} {{ categoryByQuestionId(question.id).questionText }}
+            </v-card-text>
+            <v-divider class="mx-4" />
+            <v-card-text>
+              {{ question.id }} {{ question.answerText }}
+            </v-card-text>
+            <v-radio-group v-model="answerPoint">
+              <v-radio
+                v-for="(answerPointIdx, j) in question.answerPoint"
+                :key="j"
+                :label="`${answerText(question.id, j)}`"
+                :value="answerPointIdx"
+              ></v-radio>
+            </v-radio-group>
+            </v-row>
+          </v-card>
+        </v-window-item>
+      </v-window>
+      <v-card-actions class="justify-space-between">
+        <v-btn
+          v-if="prevBtn"
+          btn
+          icon
+          large
+          @click="prev"
+        >
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn
+          v-else
+          btn
+          icon
+          large
+          disabled
+        >
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="nextBtn"
+          btn
+          icon
+          large
+          @click="next"
+        >
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
+        <v-btn
+          v-else
+          btn
+          large
+          @click="saveBtn"
+        >
+          完了
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -112,9 +111,9 @@ export default {
     user () {
       return this.$store.state.user
     },
-    // checked () {
-    //   return this.answerPoint != null && this.answerPoint > 0
-    // },
+    checked () {
+      return this.answerPoint != null && this.answerPoint > 0
+    },
     questionId () {
       return this.questions[this.boarding].id
     },
@@ -128,10 +127,10 @@ export default {
       return this.categories.find(category => category.id === categoryId)
     },
     next () {
-      // if (!this.checked) {
-      //   alert("答えを選んでください。")
-      //   return
-      // }
+      if (!this.checked) {
+        alert("答えを選んでください。")
+        return
+      }
       // do answer
       this.doAnswer()
       // show board
