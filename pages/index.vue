@@ -3,19 +3,25 @@
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
       <login-form v-if="!$store.getters.isAuthenticated" />
-      <div v-else>
-        <base-form />
-        <v-btn to="/start" class="primary">開始</v-btn>
+      <div v-else align="center">
+        <base-form /><br>
+        <v-btn to="/start" class="primary">ストレスチェックを開始</v-btn>
       </div>
     </v-col>
   </v-row>
   <v-row v-if="results && results.length > 0">
     <v-col>
-      <v-card>
-        <v-list-item v-for="res in results" :key="res.id">
-          <v-card-item>{{ res.hightStress }}</v-card-item>
-          <v-card-text>{{ $dateFns.format(res.checkDate.toDate(), 'yyyy/MM/dd HH:mm') }}</v-card-text>
-        </v-list-item>
+      <v-card class="overflow-y-auto mx-auto" max-height="400" max-width="500">
+        <h4 align="center"> 過去のストレスチェック結果 </h4>
+        <v-divider />
+        <v-list dense color="#FCE4EC">
+          <v-list-item v-for="res in results" :key="res.id">
+            <v-list-item-content>
+              {{ res.checkDate ? $dateFns.format(res.checkDate.toDate(), 'yyyy-MM-dd HH:mm') : '' }}
+            </v-list-item-content>
+            <v-list-item-content>{{ res.hightStress }}</v-list-item-content>
+          </v-list-item>
+        </v-list>
       </v-card>
     </v-col>
   </v-row>
